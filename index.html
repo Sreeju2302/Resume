@@ -3,104 +3,424 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Sreeju's personal website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sreeju M | Senior Software Developer</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --border-color: #e9ecef;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--card-bg);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    /* Profile Section */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .profile-info h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .profile-info .title {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .profile-info p {
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    /* Sections */
+    section {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    h3 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--accent-color);
+      display: inline-block;
+    }
+
+    /* Tables (for structured data) */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .data-table th, .data-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table th {
+      color: var(--secondary-color);
+      font-weight: 600;
+      background-color: #f1f3f5;
+    }
+
+    .data-table tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      background-color: var(--bg-color);
+      border-radius: 5px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Projects & Interests */
+    .project h4 {
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .project p {
+      margin-bottom: 10px;
+    }
+
+    ul.interests-list {
+      list-style-type: none;
+    }
+
+    ul.interests-list li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 10px;
+    }
+
+    ul.interests-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    /* Contact Section */
+    .contact-btn {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .contact-btn:hover {
+      background-color: #2980b9;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .data-table, .data-table tbody, .data-table tr, .data-table td, .data-table th {
+        display: block;
+      }
+
+      .data-table thead {
+        display: none;
+      }
+
+      .data-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        background-color: #fff;
+      }
+
+      .data-table td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+      }
+
+      .data-table td:last-child {
+        border-bottom: none;
+      }
+
+      .data-table td::before {
+        position: absolute;
+        top: 12px;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: var(--secondary-color);
+      }
+
+      /* Data table labels */
+      #edu-table td:nth-of-type(1)::before { content: "Year"; }
+      #edu-table td:nth-of-type(2)::before { content: "Qualification"; }
+
+      #work-table td:nth-of-type(1)::before { content: "Period"; }
+      #work-table td:nth-of-type(2)::before { content: "Role"; }
+    }
+  </style>
 </head>
 
 <body>
-  <table cellspacing="20">
-    <tr>
-      <td><img src="Sreeju.jpg" width="200" height="200" alt="profile picture"></td>
-      <td>
+  <div class="container">
+    <header class="profile-header">
+      <img src="Sreeju.jpg" alt="Sreeju M profile picture" class="profile-img">
+      <div class="profile-info">
         <h1>Sreeju M</h1>
-        <p><em><strong>An enthusiastic fresher with highly motivated and leadership skills</strong></em></p>
-        <ul>
-          <li>
-            <p>My name is Sreeju and i'm a Exceptionally focused and reliable Entry Level Software Developer with an outstanding work ethic and computer language knowledge base.</p>
-          </li>
-          <li>
-            <p>
-            <p>Adept at explaining complex computer development concepts and processes to a variety of professional and lay audiences in a clear and accessible manner
-            </p>
-          </li>
-          <li>
-            <p>
-              Able to work well independently or as part of a professional computer program development team.
-            </p>
-          </li>
-        </ul>
+        <div class="title">Senior Software Developer | .NET Developer | Full-Stack Developer</div>
 
-        <p><b>Love to code! & Desire to learn! </b></p>
-      </td>
-    </tr>
-  </table>
-  <hr size="1"color ="grey">
-  <h3>Education</h3>
-  <table cellspacing="10">
-    <thead>
-      <th>Year</th>
-      <th>Education</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2020</td>
-        <td> The Complete JavaScript Course 2020 Bootcamp on <a href="https://www.udemy.com/">udemy</a></td>
-      </tr>
-      <tr>
-        <td>2020</td>
-        <td> The Complete 2020 Web Development Bootcamp on <a href="https://www.udemy.com/">udemy</a> </td>
-      </tr>
-      <tr>
-        <td>2020-2021</td>
-        <td>Post Graduation Diploma in Full Stack Softwware Development <a href="https://en.wikipedia.org/wiki/International_Institute_of_Information_Technology,_Bangalore">IIITB</a> </td>
-      </tr>
-      <tr>
-        <td>2013-2016</td>
-        <td>Graduated in Bsc Computer Science <a href="https://www.b-u.ac.in/">Bharathiyar University</a> </td>
-      </tr>
-    </tbody>
-  </table>
-  <hr size="1" color = "grey">
-  <h3>Work Experience</h3>
-  <table cellspacing="10">
-    <thead>
-      <th> Date</th>
-      <th>Expeience</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2019-2020</td>
-        <td>Talent Acquasitoin Specialist at Blue Ocean Ventures</td>
-      </tr>
-      <tr>
-        <td>2017-2018</td>
-        <td>Customer Service Exicutive at Hinduja Global Solution</td>
-      </tr>
-      <tr>
-        <td>2016-2017</td>
-        <td>Service Associate at Accenture</td>
-      </tr>
-    </tbody>
-  </table>
-  <hr size="3">
-  <h3>Skills</h3>
-  <table cellspacing="10">
-    <tr>
-      <td>Java Programming</td>
-      <td>⭐⭐⭐⭐⭐</td>
-    </tr>
-    <tr>
-      <td>HTML</td>
-      <td>⭐⭐⭐</td>
-    </tr>
-    <tr>
-      <td>JavaScript</td>
-      <td>⭐⭐</td>
-    </tr>
-  </table>
-  <hr size="1">
-  <h3>Contact Information</h3>
-<h4><strong><a href="Contact details.html">Contact</a></strong></h4>
+        <p>
+          I am a software developer with professional experience in building,
+          maintaining, and improving software applications. My primary
+          expertise is in the .NET ecosystem, including C#, ASP.NET Core,
+          REST APIs, and backend development.
+        </p>
+        <p>
+          I enjoy solving complex technical problems, designing maintainable
+          software, understanding system architecture, and continuously
+          improving my engineering skills.
+        </p>
+        <p>
+          I also work with modern frontend technologies and enjoy building
+          full-stack applications that solve real-world problems.
+        </p>
+        <p>
+          <strong>
+            Passionate about coding, continuous learning, and building
+            software that makes a difference.
+          </strong>
+        </p>
+      </div>
+    </header>
 
+    <section>
+      <h3>Education & Professional Development</h3>
+      <table class="data-table" id="edu-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Qualification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2020–2021</td>
+            <td>
+              Post Graduate Diploma in Full Stack Software Development –
+              <a href="https://www.iiitb.ac.in/" target="_blank">IIIT Bangalore</a>
+            </td>
+          </tr>
+          <tr>
+            <td>2013–2016</td>
+            <td>
+              B.Sc. Computer Science –
+              <a href="https://www.b-u.ac.in/" target="_blank">Bharathiar University</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Ongoing</td>
+            <td>
+              Continuous learning in .NET, software architecture,
+              data structures and algorithms, and modern web development.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Work Experience</h3>
+      <table class="data-table" id="work-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>May 2025 – Present</td>
+            <td>Senior Software Developer at LTIMindtree</td>
+          </tr>
+          <tr>
+            <td>May 2022 – May 2025</td>
+            <td>Software Development experience at HCLTech</td>
+          </tr>
+          <tr>
+            <td>2020–2022</td>
+            <td>Earlier professional experience in talent acquisition and software development training.</td>
+          </tr>
+          <tr>
+            <td>2016–2020</td>
+            <td>Experience in customer service, operations, and talent acquisition.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Technical Skills</h3>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <span>C# and .NET</span>
+          <span>⭐⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>ASP.NET Core and REST APIs</span>
+          <span>⭐⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>Object-Oriented Programming and SOLID</span>
+          <span>⭐⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>SQL and Database Concepts</span>
+          <span>⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>JavaScript and TypeScript</span>
+          <span>⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>React and Frontend Development</span>
+          <span>⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>Unit Testing and Automated Testing</span>
+          <span>⭐⭐⭐</span>
+        </div>
+        <div class="skill-item">
+          <span>Git, CI/CD, and Application Monitoring</span>
+          <span>⭐⭐⭐</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3>Projects</h3>
+      <div class="project">
+        <h4>TrackFin – Personal Finance Management Application</h4>
+        <p>
+          Developing a personal finance management application using .NET 8,
+          React, TypeScript, and MongoDB. The application is designed to help
+          users manage accounts, track transactions, and understand their
+          financial activities.
+        </p>
+        <p>
+          The project provides hands-on experience in clean architecture,
+          authentication, API development, frontend integration, testing,
+          and continuous integration.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h3>Interests</h3>
+      <ul class="interests-list">
+        <li>Software architecture and system design</li>
+        <li>Backend engineering and API development</li>
+        <li>Data structures and algorithms</li>
+        <li>Full-stack application development</li>
+        <li>Exploring new technologies and solving challenging problems</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Contact Information</h3>
+      <p>
+        Interested in connecting about software development,
+        technology, or interesting projects?
+      </p>
+      <a href="Contact details.html" class="contact-btn">Contact Me</a>
+    </section>
+  </div>
 </body>
-
 </html>
