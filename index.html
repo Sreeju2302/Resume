@@ -7,25 +7,19 @@
   <title>Sreeju M | Senior Software Developer</title>
   <style>
     :root {
-      --bg-color: #0a192f;
-      --text-color: #8892b0;
-      --primary-color: #ccd6f6;
-      --secondary-color: #a8b2d1;
-      --accent-color: #64ffda;
-      --border-color: #233554;
-      --card-bg: #112240;
-    }
+      /* Premium Dark Theme */
+      --bg-color: #0b1120;
+      --bg-secondary: #111827;
+      --text-color: #94a3b8; /* Better contrast text */
+      --text-light: #e2e8f0;
+      --primary-color: #f8fafc;
+      --accent-color: #38bdf8; /* Sky blue */
+      --accent-hover: #0284c7;
+      --border-color: #1e293b;
+      --card-bg: #1e293b;
+      --card-hover: #334155;
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-      will-change: opacity, transform;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+      --nav-height: 70px;
     }
 
     * {
@@ -34,425 +28,822 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
       color: var(--text-color);
       background-color: var(--bg-color);
-      padding: 20px;
+      padding-top: var(--nav-height);
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background-color: var(--card-bg);
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      z-index: 1001;
+      transition: width 0.1s ease-out;
     }
 
-    /* Profile Section */
-    .profile-header {
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      background-color: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(10px);
       display: flex;
+      justify-content: center;
       align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-links {
+      display: flex;
       gap: 30px;
-      margin-bottom: 30px;
+      list-style: none;
     }
 
-    .profile-img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      flex-shrink: 0;
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      position: relative;
     }
 
-    .profile-info h1 {
-      color: var(--primary-color);
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .profile-info .title {
-      font-size: 1.2rem;
+    .nav-links a:hover, .nav-links a.active {
       color: var(--accent-color);
-      font-weight: 600;
-      margin-bottom: 15px;
     }
 
-    .profile-info p {
-      margin-bottom: 10px;
-      color: #555;
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     /* Sections */
     section {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
+      padding: 80px 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    h3 {
+    section:not(#hero) {
+      min-height: unset;
+      padding: 100px 0;
+    }
+
+    .section-title {
       color: var(--primary-color);
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      padding-bottom: 5px;
-      border-bottom: 2px solid var(--accent-color);
-      display: inline-block;
-    }
-
-    /* Tables (for structured data) */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    .data-table th, .data-table td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .data-table th {
-      color: var(--primary-color);
-      font-weight: 600;
-      background-color: #1d2d50;
-    }
-
-    .data-table tr:hover {
-      background-color: #172a45;
-    }
-
-    a {
-      color: var(--accent-color);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: #2980b9;
-      text-decoration: underline;
-    }
-
-    /* Skills Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      font-size: 2rem;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
       gap: 15px;
     }
 
-    .skill-item {
+    .section-title::after {
+      content: "";
+      height: 1px;
+      background-color: var(--border-color);
+      flex-grow: 1;
+    }
+
+    /* Hero Section */
+    #hero {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero-greeting {
+      color: var(--accent-color);
+      font-family: monospace;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .hero-name {
+      color: var(--primary-color);
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .hero-title {
+      color: var(--text-light);
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 25px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    .hero-desc p {
+      margin-bottom: 15px;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+    }
+
+    .hero-image-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      z-index: -1;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-image-wrapper:hover::after {
+      transform: translate(-5px, -5px);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px -15px rgba(0,0,0,0.7);
+      filter: grayscale(20%);
+      transition: filter 0.3s ease;
+    }
+
+    .hero-image-wrapper:hover .hero-img {
+      filter: grayscale(0%);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: rgba(56, 189, 248, 0.1);
+      box-shadow: 0 4px 10px rgba(56, 189, 248, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      color: #fff;
+    }
+
+    /* Card System */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+
+    @media (min-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .card-grid.single-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
+      border-color: var(--accent-color);
+    }
+
+    .card-header {
       display: flex;
       justify-content: space-between;
-      padding: 10px 15px;
-      background-color: var(--bg-color);
-      border-radius: 5px;
-      border: 1px solid var(--border-color);
+      align-items: flex-start;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    /* Projects & Interests */
-    .project h4 {
-      color: var(--secondary-color);
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+    .card-title {
+      color: var(--text-light);
+      font-size: 1.25rem;
+      font-weight: 600;
     }
 
-    .project p {
-      margin-bottom: 10px;
+    .card-subtitle {
+      color: var(--accent-color);
+      font-size: 1rem;
+      margin-top: 5px;
     }
 
-    ul.interests-list {
+    .card-meta {
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      background-color: rgba(56, 189, 248, 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .card-content {
+      color: var(--text-color);
+    }
+
+    .card-content a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    .card-content a:hover {
+      text-decoration: underline;
+    }
+
+    ul.card-list {
       list-style-type: none;
     }
-
-    ul.interests-list li {
+    ul.card-list li {
       position: relative;
-      padding-left: 25px;
-      margin-bottom: 10px;
+      padding-left: 20px;
+      margin-bottom: 8px;
     }
-
-    ul.interests-list li::before {
-      content: '✓';
+    ul.card-list li::before {
+      content: '▹';
       position: absolute;
       left: 0;
       color: var(--accent-color);
-      font-weight: bold;
+    }
+
+    /* Skills Section */
+    .skills-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .skills-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .skill-category h4 {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .skill-item-interactive {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bg-color);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      width: 0%;
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* Contact Section */
-    .contact-btn {
-      display: inline-block;
-      background-color: var(--accent-color);
-      color: white;
-      padding: 10px 25px;
-      border-radius: 5px;
-      font-weight: bold;
-      margin-top: 15px;
+    .contact-content {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-content p {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
     }
 
-    .contact-btn:hover {
-      background-color: #2980b9;
-      color: white;
-      text-decoration: none;
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        padding: 20px;
+      .navbar {
+        height: auto;
+        padding: 15px 0;
+      }
+      .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+      }
+      body {
+        padding-top: 100px;
       }
 
-      .profile-header {
-        flex-direction: column;
+      #hero {
+        flex-direction: column-reverse;
         text-align: center;
+        gap: 30px;
+        padding-top: 20px;
       }
 
-      .profile-img {
-        width: 150px;
-        height: 150px;
+      .hero-name {
+        font-size: 3rem;
+      }
+      .hero-title {
+        font-size: 1.8rem;
       }
 
-      .data-table, .data-table tbody, .data-table tr, .data-table td, .data-table th {
-        display: block;
+      .hero-image-wrapper {
+        width: 220px;
+        height: 220px;
       }
-
-      .data-table thead {
-        display: none;
+      .hero-desc {
+        text-align: left;
       }
+    }
 
-      .data-table tr {
-        margin-bottom: 15px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        background-color: var(--card-bg);
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
       }
-
-      .data-table td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: translateY(0);
       }
-
-      .data-table td:last-child {
-        border-bottom: none;
+      .progress-bar-fill {
+        transition: none;
       }
-
-      .data-table td::before {
-        position: absolute;
-        top: 12px;
-        left: 15px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        font-weight: bold;
-        color: var(--secondary-color);
-      }
-
-      /* Data table labels */
-      #edu-table td:nth-of-type(1)::before { content: "Year"; }
-      #edu-table td:nth-of-type(2)::before { content: "Qualification"; }
-
-      #work-table td:nth-of-type(1)::before { content: "Period"; }
-      #work-table td:nth-of-type(2)::before { content: "Role"; }
     }
   </style>
 </head>
 
 <body>
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="#hero">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
   <div class="container">
-    <header class="profile-header">
-      <img src="Sreeju.jpg" alt="Sreeju M profile picture" class="profile-img">
-      <div class="profile-info">
-        <h1>Sreeju M</h1>
-        <div class="title">Senior Software Developer | .NET Developer | Full-Stack Developer</div>
-
-        <p>
-          I am a software developer with professional experience in building,
-          maintaining, and improving software applications. My primary
-          expertise is in the .NET ecosystem, including C#, ASP.NET Core,
-          REST APIs, and backend development.
-        </p>
-        <p>
-          I enjoy solving complex technical problems, designing maintainable
-          software, understanding system architecture, and continuously
-          improving my engineering skills.
-        </p>
-        <p>
-          I also work with modern frontend technologies and enjoy building
-          full-stack applications that solve real-world problems.
-        </p>
-        <p>
-          <strong>
-            Passionate about coding, continuous learning, and building
+    <section id="hero">
+      <div class="hero-content reveal">
+        <span class="hero-greeting">Hi, my name is</span>
+        <h1 class="hero-name">Sreeju M.</h1>
+        <h2 class="hero-title">I build things for the web.</h2>
+        <div class="hero-desc">
+          <p>
+            I am a software developer with professional experience in building,
+            maintaining, and improving software applications. My primary
+            expertise is in the .NET ecosystem, including C#, ASP.NET Core,
+            REST APIs, and backend development.
+          </p>
+          <p>
+            I enjoy solving complex technical problems, designing maintainable
+            software, understanding system architecture, and continuously
+            improving my engineering skills. Passionate about coding, continuous learning, and building
             software that makes a difference.
-          </strong>
-        </p>
+          </p>
+        </div>
+        <a href="#contact" class="btn btn-primary">Get In Touch</a>
       </div>
-    </header>
-
-    <section class="fade-in">
-      <h3>Education & Professional Development</h3>
-      <table class="data-table" id="edu-table">
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Qualification</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2020–2021</td>
-            <td>
-              Post Graduate Diploma in Full Stack Software Development –
-              <a href="https://www.iiitb.ac.in/" target="_blank">IIIT Bangalore</a>
-            </td>
-          </tr>
-          <tr>
-            <td>2013–2016</td>
-            <td>
-              B.Sc. Computer Science –
-              <a href="https://www.b-u.ac.in/" target="_blank">Bharathiar University</a>
-            </td>
-          </tr>
-          <tr>
-            <td>Ongoing</td>
-            <td>
-              Continuous learning in .NET, software architecture,
-              data structures and algorithms, and modern web development.
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="hero-image-wrapper reveal" style="transition-delay: 0.2s;">
+        <img src="Sreeju.jpg" alt="Sreeju M profile picture" class="hero-img">
+      </div>
     </section>
 
-    <section class="fade-in">
-      <h3>Work Experience</h3>
-      <table class="data-table" id="work-table">
-        <thead>
-          <tr>
-            <th>Period</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>May 2025 – Present</td>
-            <td>Senior Software Developer at LTIMindtree</td>
-          </tr>
-          <tr>
-            <td>May 2022 – May 2025</td>
-            <td>Software Development experience at HCLTech</td>
-          </tr>
-          <tr>
-            <td>2020–2022</td>
-            <td>Earlier professional experience in talent acquisition and software development training.</td>
-          </tr>
-          <tr>
-            <td>2016–2020</td>
-            <td>Experience in customer service, operations, and talent acquisition.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <section id="education" class="reveal">
+      <h2 class="section-title">Education & Professional Development</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Post Graduate Diploma</h3>
+              <div class="card-subtitle">Full Stack Software Development</div>
+            </div>
+            <div class="card-meta">2020 – 2021</div>
+          </div>
+          <div class="card-content">
+            <p><a href="https://www.iiitb.ac.in/" target="_blank">IIIT Bangalore</a></p>
+          </div>
+        </div>
 
-    <section class="fade-in">
-      <h3>Technical Skills</h3>
-      <div class="skills-grid">
-        <div class="skill-item">
-          <span>C# and .NET</span>
-          <span>⭐⭐⭐⭐</span>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">B.Sc. Computer Science</h3>
+              <div class="card-subtitle">Undergraduate Degree</div>
+            </div>
+            <div class="card-meta">2013 – 2016</div>
+          </div>
+          <div class="card-content">
+            <p><a href="https://www.b-u.ac.in/" target="_blank">Bharathiar University</a></p>
+          </div>
         </div>
-        <div class="skill-item">
-          <span>ASP.NET Core and REST APIs</span>
-          <span>⭐⭐⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>Object-Oriented Programming and SOLID</span>
-          <span>⭐⭐⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>SQL and Database Concepts</span>
-          <span>⭐⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>JavaScript and TypeScript</span>
-          <span>⭐⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>React and Frontend Development</span>
-          <span>⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>Unit Testing and Automated Testing</span>
-          <span>⭐⭐⭐</span>
-        </div>
-        <div class="skill-item">
-          <span>Git, CI/CD, and Application Monitoring</span>
-          <span>⭐⭐⭐</span>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Continuous Learning</h3>
+              <div class="card-subtitle">Self-Taught & Professional Growth</div>
+            </div>
+            <div class="card-meta">Ongoing</div>
+          </div>
+          <div class="card-content">
+            <p>Active learning in .NET, software architecture, data structures, algorithms, and modern web development.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="fade-in">
-      <h3>Projects</h3>
-      <div class="project">
-        <h4>TrackFin – Personal Finance Management Application</h4>
+    <section id="experience" class="reveal">
+      <h2 class="section-title">Work Experience</h2>
+      <div class="card-grid single-col">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Senior Software Developer</h3>
+              <div class="card-subtitle">LTIMindtree</div>
+            </div>
+            <div class="card-meta">May 2025 – Present</div>
+          </div>
+          <div class="card-content">
+            <ul class="card-list">
+              <li>Leading and developing complex software solutions using modern technologies.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Software Developer</h3>
+              <div class="card-subtitle">HCLTech</div>
+            </div>
+            <div class="card-meta">May 2022 – May 2025</div>
+          </div>
+          <div class="card-content">
+            <ul class="card-list">
+              <li>Gained extensive software development experience contributing to enterprise applications.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Early Professional Experience</h3>
+              <div class="card-subtitle">Various</div>
+            </div>
+            <div class="card-meta">2016 – 2022</div>
+          </div>
+          <div class="card-content">
+            <ul class="card-list">
+              <li>2020–2022: Experience in talent acquisition and software development training.</li>
+              <li>2016–2020: Background in customer service, operations, and talent acquisition.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-container">
+
+        <div class="skill-category">
+          <h4>Backend Development</h4>
+          <div class="skill-list">
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>C# and .NET</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="90%"></div>
+              </div>
+            </div>
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>ASP.NET Core & REST APIs</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="90%"></div>
+              </div>
+            </div>
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>SQL & Database Concepts</span>
+                <span>80%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h4>Frontend Development</h4>
+          <div class="skill-list">
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>JavaScript & TypeScript</span>
+                <span>75%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="75%"></div>
+              </div>
+            </div>
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>React & Frontend Dev</span>
+                <span>65%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="65%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h4>Core Engineering</h4>
+          <div class="skill-list">
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>OOP and SOLID Principles</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="85%"></div>
+              </div>
+            </div>
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>Software Architecture</span>
+                <span>75%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h4>Tools & Technologies</h4>
+          <div class="skill-list">
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>Unit Testing & Automation</span>
+                <span>75%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="75%"></div>
+              </div>
+            </div>
+            <div class="skill-item-interactive">
+              <div class="skill-info">
+                <span>Git, CI/CD, & Monitoring</span>
+                <span>80%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" data-width="80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <h2 class="section-title">Projects & Interests</h2>
+      <div class="card-grid single-col">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">TrackFin</h3>
+              <div class="card-subtitle">Personal Finance Management Application</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <p style="margin-bottom: 15px;">
+              Developing a personal finance management application using <strong>.NET 8,
+              React, TypeScript, and MongoDB</strong>. The application is designed to help
+              users manage accounts, track transactions, and understand their
+              financial activities.
+            </p>
+            <p>
+              The project provides hands-on experience in clean architecture,
+              authentication, API development, frontend integration, testing,
+              and continuous integration.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Professional Interests</h3>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul class="card-list">
+              <li>Software architecture and system design</li>
+              <li>Backend engineering and API development</li>
+              <li>Data structures and algorithms</li>
+              <li>Full-stack application development</li>
+              <li>Exploring new technologies and solving challenging problems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-content">
         <p>
-          Developing a personal finance management application using .NET 8,
-          React, TypeScript, and MongoDB. The application is designed to help
-          users manage accounts, track transactions, and understand their
-          financial activities.
+          Interested in connecting about software development,
+          technology, or interesting projects? I'm always open to discussing new opportunities.
         </p>
-        <p>
-          The project provides hands-on experience in clean architecture,
-          authentication, API development, frontend integration, testing,
-          and continuous integration.
-        </p>
+        <a href="Contact details.html" class="btn btn-primary">Contact Me</a>
       </div>
-    </section>
-
-    <section class="fade-in">
-      <h3>Interests</h3>
-      <ul class="interests-list">
-        <li>Software architecture and system design</li>
-        <li>Backend engineering and API development</li>
-        <li>Data structures and algorithms</li>
-        <li>Full-stack application development</li>
-        <li>Exploring new technologies and solving challenging problems</li>
-      </ul>
-    </section>
-
-    <section class="fade-in">
-      <h3>Contact Information</h3>
-      <p>
-        Interested in connecting about software development,
-        technology, or interesting projects?
-      </p>
-      <a href="Contact details.html" class="contact-btn">Contact Me</a>
     </section>
   </div>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
+      // 1. Scroll Progress Bar
+      const progressBar = document.getElementById("scroll-progress");
+      window.addEventListener("scroll", () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + "%";
+      });
+
+      // 2. Active Nav Link on Scroll
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (scrollY >= sectionTop - 250) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (current && link.getAttribute("href").includes(current)) {
+            link.classList.add("active");
+          }
+        });
+      });
+
+      // 3. Reveal Animations (Intersection Observer)
+      const revealOptions = {
         root: null,
         rootMargin: "0px",
-        threshold: 0.1
+        threshold: 0.15
       };
 
-      const observer = new IntersectionObserver((entries, observer) => {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.classList.add("active");
+
+            // If it's the skills section, trigger the progress bars
+            if (entry.target.id === "skills") {
+              const progressBars = entry.target.querySelectorAll(".progress-bar-fill");
+              progressBars.forEach(bar => {
+                bar.style.width = bar.getAttribute("data-width");
+              });
+            }
+
             observer.unobserve(entry.target);
           }
         });
-      }, observerOptions);
+      }, revealOptions);
 
-      const elementsToAnimate = document.querySelectorAll(".fade-in");
-      elementsToAnimate.forEach(el => observer.observe(el));
+      const elementsToReveal = document.querySelectorAll(".reveal");
+      elementsToReveal.forEach(el => revealObserver.observe(el));
+
+      // If hero is initially in view, trigger immediately
+      setTimeout(() => {
+        document.querySelectorAll("#hero.reveal, #hero .reveal").forEach(el => el.classList.add("active"));
+      }, 100);
     });
   </script>
 </body>
